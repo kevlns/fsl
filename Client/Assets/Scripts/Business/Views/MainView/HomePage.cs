@@ -5,7 +5,7 @@ using DanielLochner.Assets.SimpleScrollSnap;
 using FSL;
 using UnityEngine;
 
-public class HomePage : MonoBehaviour
+public class HomePage : MonoBehaviour, IPage
 {
     [SerializeField] private SimpleScrollSnap _bannerScrollView;
 
@@ -44,6 +44,7 @@ public class HomePage : MonoBehaviour
             ++_bannerItemCount;
         }
 
+        _bannerScrollView.onPanelCentered.AddListener((cInd, sInd) => { _bannerIndex = cInd; });
         _bannerInit = true;
     }
 

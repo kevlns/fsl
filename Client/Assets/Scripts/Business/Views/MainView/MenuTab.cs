@@ -22,11 +22,11 @@ namespace FSL
         private Image _bg;
         private Text _text;
         private bool _isSelected = false;
+        private HorizontalLayoutGroup _layout;
         [SerializeField] private EMenuTabType _menuType;
-        [SerializeField] private HorizontalLayoutGroup _layout;
 
         private Vector3 _defaultScale = Vector3.one;
-        private Vector3 _selectedScale = new Vector3(1.1f, 1.1f, 1.1f);
+        private Vector3 _selectedScale = new Vector3(1.05f, 1.05f, 1.05f);
 
         private void Awake()
         {
@@ -34,6 +34,7 @@ namespace FSL
             _button = GetComponent<Button>();
             _bg = _button.GetComponent<Image>();
             _text = _button.GetComponentInChildren<Text>();
+            _layout = transform.parent.GetComponent<HorizontalLayoutGroup>();
             Notifier.Listen<EMenuTabType>(FrameEvent.MenuTabClicked, OnEventMenuTabClicked);
         }
 

@@ -9,7 +9,5 @@ namespace FSL
     public class BaseView : MonoBehaviour
     {
         [SerializeField] protected Image _viewBg;
-        [SerializeField] protected GameObject _content;
-        [SerializeField] protected Image _contentBg;
     }
 }
