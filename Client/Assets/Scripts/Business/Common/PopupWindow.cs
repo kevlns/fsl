@@ -26,12 +26,17 @@ namespace FSL
         public void Close()
         {
             gameObject.SetActive(false);
-            Notifier.Trigger(UIEvent.CloseUI, this);
+            Notifier.Trigger(UIEvent.NotifyOne);
         }
 
         public GameObject GetGameObject()
         {
             return gameObject;
+        }
+
+        public void SetActive(bool active)
+        {
+            gameObject.SetActive(active);
         }
     }
 }

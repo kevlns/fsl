@@ -34,7 +34,7 @@ namespace FSL
 
         private void LateUpdate()
         {
-            Global.UIManager.LateUpdate();
+            UIManager.LateUpdate();
         }
 
         public static RectTransform GetRootCanvasTransform()

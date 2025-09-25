@@ -7,5 +7,6 @@ namespace FSL
         public void Open(params object[] args);
         public void Close();
         public GameObject GetGameObject();
+        public void SetActive(bool active);
     }
 }

@@ -31,7 +31,7 @@ namespace FSL
             _image = _button.GetComponent<Image>();
             _text = _button.GetComponentInChildren<Text>();
             _pLayout = transform.parent.GetComponent<HorizontalLayoutGroup>();
-            Notifier.Listen<EMenuTabType>(FrameEvent.MenuTabClicked, OnEventMenuTabClicked);
+            Notifier.Listen<EMenuTabType>(FrameEvent.MenuTabClicked, OnMenuTabClicked);
         }
 
         private void Start()
@@ -46,7 +46,7 @@ namespace FSL
             Notifier.Trigger(FrameEvent.MenuTabClicked, _menuType);
         }
 
-        private void OnEventMenuTabClicked(EMenuTabType type)
+        private void OnMenuTabClicked(EMenuTabType type)
         {
             _isSelected = (type == _menuType);
             _rectTransform.localScale = _isSelected ? _selectedScale : _defaultScale;

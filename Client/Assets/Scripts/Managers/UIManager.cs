@@ -7,52 +7,55 @@ namespace FSL
 {
     public enum UIEvent
     {
-        CloseUI,
-        BlockUI
+        NotifyOne
     }
 
     public class UIManager : Singleton<UIManager>
     {
-        private Queue<IUI> _uiToDestroy = new Queue<IUI>();
-        private Stack<IUI> _uiToBlock = new Stack<IUI>();
+        private Stack<GameObject> _blockedUI = new Stack<GameObject>();
+        private GameObject _currentUI = null;
+        private GameObject _toDelUI = null;
 
         public override void Init()
         {
             base.Init();
-            Notifier.Listen<IUI>(UIEvent.CloseUI, ToDestroyUI);
-            Notifier.Listen<IUI>(UIEvent.BlockUI, BlockUI);
+            Notifier.Listen(UIEvent.NotifyOne, OnNotifyOne);
         }
 
         public void Open(string uiName, params object[] args)
         {
             Core.AssetModule.LoadPrefab(uiName, (prefab) =>
             {
+                if (_currentUI)
+                {
+                    _currentUI.SetActive(false);
+                    _blockedUI.Push(_currentUI);
+                }
+
                 GameObject go = GameObject.Instantiate(prefab, Global.GetRootCanvasTransform());
-                IUI uiComponent = go.GetComponent<IUI>();
-                uiComponent.Open(args);
+                IUI ui = go.GetComponent<IUI>();
+                ui.Open(args);
+                _currentUI = go;
             });
         }
 
-        private void BlockUI(IUI ui)
+        private void OnNotifyOne()
         {
-            ui.GetGameObject().SetActive(false);
-            _uiToBlock.Push(ui);
-        }
-
-        private void ToDestroyUI(IUI ui)
-        {
-            _uiToDestroy.Enqueue(ui);
+            _toDelUI = _currentUI;
+            _currentUI = null;
+            if (_blockedUI.Count > 0)
+            {
+                _currentUI = _blockedUI.Pop();
+                _currentUI.SetActive(true);
+            }
         }
 
         public void LateUpdate()
         {
-            while (_uiToDestroy.Count > 0)
+            if (_toDelUI)
             {
-                IUI ui = _uiToDestroy.Dequeue();
-                if (ui != null && ui.GetGameObject() != null)
-                {
-                    GameObject.Destroy(ui.GetGameObject());
-                }
+                GameObject.Destroy(_toDelUI);
+                _toDelUI = null;
             }
         }
     }
