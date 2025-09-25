@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +5,7 @@ namespace FSL
 {
     public class PopupWindow : MonoBehaviour, IUI
     {
+        [SerializeField] private Image _image;
         [SerializeField] private Text _title;
         [SerializeField] private Text _desc;
         [SerializeField] private Button _closeButton;
@@ -28,7 +26,12 @@ namespace FSL
         public void Close()
         {
             gameObject.SetActive(false);
-            Destroy(this);
+            Notifier.Trigger(UIEvent.CloseUI, this);
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
 }

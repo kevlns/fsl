@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace FSL
 {
-    public enum ETipType
+    public enum TipType
     {
         Info,
         Warning,
@@ -16,21 +16,22 @@ namespace FSL
 
     public class Tip : MonoBehaviour
     {
-        private static Dictionary<ETipType, string> _tipType2IconName = new Dictionary<ETipType, string>()
+        private static Dictionary<TipType, string> _tipType2IconName = new Dictionary<TipType, string>()
         {
-            { ETipType.Info, "tip-info" },
-            { ETipType.Warning, "tip-warning" },
-            { ETipType.Error, "tip-error" },
+            { TipType.Info, "tip-info" },
+            { TipType.Warning, "tip-warning" },
+            { TipType.Error, "tip-error" },
         };
 
+        [SerializeField] private Text _title;
         private Image _icon;
         private Button _button;
-        private string _tipTitle = "tip title";
-        private string _tipDesc = "hello tip";
+        private string _popupTitle = "tip title";
+        private string _popupDesc = "hello tip";
 
         private void Awake()
         {
-            _icon = GetComponent<Image>();
+            _icon = GetComponentInChildren<Image>();
             _button = GetComponentInChildren<Button>();
         }
 
@@ -42,13 +43,16 @@ namespace FSL
         private void OnClicked()
         {
             Debug.Log($"[{gameObject.name}] Clicked");
-            Global.UIManager.Open("PopupWindow", _tipTitle, _tipDesc);
+            Global.UIManager.Open("PopupWindow", _popupTitle, _popupDesc);
         }
 
         // TODO 应该用配置文件来初始化组件
-        // public void Init(Json json)
-        // {
-        //     
-        // }
+        public void Init(TipType type, string title, string popupTitle, string popupDesc)
+        {
+            Core.AssetModule.LoadSprite(_tipType2IconName[type], (sprite) => { _icon.sprite = sprite; });
+            _title.text = title;
+            _popupTitle = popupTitle;
+            _popupDesc = popupDesc;
+        }
     }
 }

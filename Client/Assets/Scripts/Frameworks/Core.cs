@@ -28,8 +28,9 @@ namespace FSL
 
         private void Invoked()
         {
-            NetModule.ConnectWebSocket();
-            NetModule.HttpHandle.SendRequest(HttpRequestLabel.GET_PATH_GetUserByID, 10);
+            // TODO https 下用 wss 才能正常工作
+            // NetModule.ConnectWebSocket();
+            // NetModule.HttpHandle.SendRequest(HttpRequestLabel.GET_PATH_GetUserByID, 10);
             // NetModule.HttpHandle.SendRequest(HttpRequestLabel.POST_NewUser, new NewUserReqData()
             // {
             //     username = "sl"

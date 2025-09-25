@@ -18,13 +18,13 @@ namespace FSL
         private void Awake()
         {
             _rootCanvas = GameObject.Find("RootCanvas").GetComponent<Canvas>();
+            _rootCanvasTransform = _rootCanvas.GetComponent<RectTransform>();
             Global.UIManager.Init();
             Global.ViewManager.Init();
         }
 
         private void Start()
         {
-            
         }
 
         private void Update()
@@ -32,7 +32,12 @@ namespace FSL
             // 驱动其他模块的帧更新
         }
 
-        public static Transform GetRootCanvasTransform()
+        private void LateUpdate()
+        {
+            Global.UIManager.LateUpdate();
+        }
+
+        public static RectTransform GetRootCanvasTransform()
         {
             return Instance._rootCanvasTransform;
         }

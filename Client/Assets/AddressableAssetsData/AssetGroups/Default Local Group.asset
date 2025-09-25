@@ -17,13 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 2006eceac17f42841a1dc6916c1abe98
   m_SerializeEntries:
-  - m_GUID: 1786d058c50d7c24caa7a7be1ede73a4
-    m_Address: HomePage
+  - m_GUID: 6319cc342c62bfd43919ff5fcdcd82e8
+    m_Address: BannerCard
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6319cc342c62bfd43919ff5fcdcd82e8
-    m_Address: BannerItem
+  - m_GUID: b01514a8191a16b4f8dcc725a3db14e4
+    m_Address: InfoCard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d69b93dba62d2b34d9b9b714eb725592
+    m_Address: ModCard
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

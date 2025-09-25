@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.UI;
 
 namespace FSL
@@ -17,12 +13,12 @@ namespace FSL
 
     public class MenuTab : MonoBehaviour
     {
-        private RectTransform _rect;
+        private RectTransform _rectTransform;
         private Button _button;
-        private Image _bg;
+        private Image _image;
         private Text _text;
         private bool _isSelected = false;
-        private HorizontalLayoutGroup _layout;
+        private HorizontalLayoutGroup _pLayout;
         [SerializeField] private EMenuTabType _menuType;
 
         private Vector3 _defaultScale = Vector3.one;
@@ -30,11 +26,11 @@ namespace FSL
 
         private void Awake()
         {
-            _rect = GetComponent<RectTransform>();
+            _rectTransform = GetComponent<RectTransform>();
             _button = GetComponent<Button>();
-            _bg = _button.GetComponent<Image>();
+            _image = _button.GetComponent<Image>();
             _text = _button.GetComponentInChildren<Text>();
-            _layout = transform.parent.GetComponent<HorizontalLayoutGroup>();
+            _pLayout = transform.parent.GetComponent<HorizontalLayoutGroup>();
             Notifier.Listen<EMenuTabType>(FrameEvent.MenuTabClicked, OnEventMenuTabClicked);
         }
 
@@ -53,9 +49,9 @@ namespace FSL
         private void OnEventMenuTabClicked(EMenuTabType type)
         {
             _isSelected = (type == _menuType);
-            _rect.localScale = _isSelected ? _selectedScale : _defaultScale;
-            _layout.enabled = false;
-            _layout.enabled = true;
+            _rectTransform.localScale = _isSelected ? _selectedScale : _defaultScale;
+            _pLayout.enabled = false;
+            _pLayout.enabled = true;
         }
     }
 }

@@ -8,6 +8,5 @@ namespace FSL
 {
     public class BaseView : MonoBehaviour
     {
-        [SerializeField] protected Image _viewBg;
     }
 }
